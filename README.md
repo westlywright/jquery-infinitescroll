@@ -34,7 +34,7 @@ $('#results').infiniteScroll({
 		<td valign="top">threshold</td>
 		<td valign="top"><code>int</code></td>
 		<td valign="top"><code>500</code></td>
-		<td valign="top">When the user scrolls to this many pixels from the bottom, `loadMore` is called.</td>
+		<td valign="top">When the user scrolls to this many pixels from the bottom, <code>loadMore</code> is called.</td>
 	</tr>
 	<tr>
 		<td valign="top">onEnd</td>
