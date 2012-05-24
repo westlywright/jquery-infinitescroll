@@ -1,6 +1,8 @@
 # jQuery Infinite Scroll
 
-A lightweight (**4kb**) jQuery plugin that provides a basic mechanism for triggering more results to be loaded when the bottom of the page is reached. It's simple and designed not to get in the way.
+A lightweight (**0.8kb**) jQuery plugin that provides a basic mechanism for triggering more results to be loaded when the bottom of the page is reached. It's simple and designed not to get in the way.
+
+See it in action! — ["Explore" on DIY](https://diy.org/explore).
 
 ## Usage
 
