@@ -48,7 +48,7 @@ $('#results').infiniteScroll({
 		<td valign="top">onBottom</td>
 		<td valign="top"><code>function(callback)</code></td>
 		<td valign="top"><code>null</code></td>
-		<td valign="top"><strong>(required)</strong> Invoked when the user reaches the end of the page. When you're done loading more results / updating views, invoke callback() with one argument: a bool representing whether there are more results available. If no arguments are provided, the plugin assumes there are more results.</td>
+		<td valign="top"><strong>(required)</strong> Invoked when the user reaches the end of the page. When you're done loading more results / updating views, invoke <code>callback()</code> with one argument: a bool representing whether there are more results available. If no argument is provided, the plugin assumes there are more results.</td>
 	</tr>
 </table>
 
