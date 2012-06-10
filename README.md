@@ -2,6 +2,8 @@
 
 A lightweight (**1kb**) jQuery plugin that provides a basic mechanism for triggering more results to be loaded when the bottom of the page is reached. It's simple and designed not to get in the way. In addition to working on all major browsers, it supports [iScroll](https://github.com/cubiq/iscroll) (for scrolling content on iOS devices).
 
+See it in action! — ["Explore" on DIY](https://diy.org/explore).
+
 ## Usage
 
 ```javascript
@@ -56,21 +58,21 @@ For more information on iScroll implementation, check out the [documentation](ht
 	</tr>
 	<tr>
 		<td valign="top">threshold</td>
-		<td valign="top">int</td>
-		<td valign="top">500</td>
-		<td valign="top">When the user scrolls to this many pixels from the bottom, `loadMore` is called.</td>
+		<td valign="top"><code>int</code></td>
+		<td valign="top"><code>500</code></td>
+		<td valign="top">When the user scrolls to this many pixels from the bottom, <code>loadMore</code> is called.</td>
 	</tr>
 	<tr>
 		<td valign="top">onEnd</td>
-		<td valign="top">function()</td>
-		<td valign="top">null</td>
+		<td valign="top"><code>function()</code></td>
+		<td valign="top"><code>null</code></td>
 		<td valign="top">Invoked when no more results are available (i.e. when <code>false</code> is passed to the callback provided to the <code>onBottom</code> method).</td>
 	</tr>
 	<tr>
 		<td valign="top">onBottom</td>
-		<td valign="top">function(callback)</td>
-		<td valign="top">null</td>
-		<td valign="top"><strong>(required)</strong> Invoked when the user reaches the end of the page. When you're done loading more results / updating views, invoke callback() with one argument: a bool representing whether there are more results available. If no arguments are provided, the plugin assumes there are more results.</td>
+		<td valign="top"><code>function(callback)</code></td>
+		<td valign="top"><code>null</code></td>
+		<td valign="top"><strong>(required)</strong> Invoked when the user reaches the end of the page. When you're done loading more results / updating views, invoke <code>callback()</code> with one argument: a bool representing whether there are more results available. If no argument is provided, the plugin assumes there are more results.</td>
 	</tr>
 	<tr>
 		<td valign="top">iScroll</td>
@@ -82,4 +84,16 @@ For more information on iScroll implementation, check out the [documentation](ht
 
 ### Reset
 
-If you need to reset the infinite scrolling mechanism (like if the user switches search criteria, section, whatever), simply call `$('#results').infiniteScroll('reset');`.
+If you need to reset the infinite scrolling mechanism (like if the user switches search criteria, section, whatever), simply call:
+
+```javascript
+$('#results').infiniteScroll('reset');
+```
+
+## License
+
+Copyright (c) 2010 DIY Co
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
