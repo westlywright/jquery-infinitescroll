@@ -1,6 +1,6 @@
 # jQuery Infinite Scroll
 
-A really simple & lightweight (1kb) jQuery infinite scroll plugin that's designed not to get in the way—so you can handle result fetching / updating views yourself. In addition to working with all major browsers, it supports [iScroll](https://github.com/cubiq/iscroll) (for scrolling content on iOS devices).
+A lightweight (**1kb**) jQuery plugin that provides a basic mechanism for triggering more results to be loaded when the bottom of the page is reached. It's simple and designed not to get in the way. In addition to working on all major browsers, it supports [iScroll](https://github.com/cubiq/iscroll) (for scrolling content on iOS devices).
 
 ## Usage
 
