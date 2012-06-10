@@ -15,7 +15,6 @@
  */
 
 ;(function($) {
-	"use strict";
 	
 	$.fn.infiniteScroll = function() {
 		var $container = $(this);
@@ -26,13 +25,16 @@
 		var moreExists = true;
 		
 		// defaults
+		// -----------------------------------------------------------------------------
 		var options = {
-			threshold : 500,
-			onBottom  : null,
-			onEnd     : null
+			threshold : 80,
+			loadMore  : function() {},
+			onEnd     : null,
+			iScroll   : null
 		};
 		
 		// parse arguments
+		// -----------------------------------------------------------------------------
 		if (arguments.length) {
 			if (typeof arguments[0] === 'string') {
 				action = arguments[0];
@@ -45,17 +47,18 @@
 		}
 		
 		// initialize
+		// -----------------------------------------------------------------------------
 		if (action === 'init') {
-			$container.data('infinite-scroll', options);
-			$window.off('scroll.infinite resize.infinite');
-			$window.on('scroll.infinite resize.infinite', function() {
+			var onScroll = function() {
 				if (waiting || !moreExists) return;
+					
+				var dy = options.iScroll
+					? -options.iScroll.maxScrollY + options.iScroll.y
+					:  $body.outerHeight() - $window.height() - $window.scrollTop();
 				
-				var dy = $body.outerHeight() - $window.height() - $window.scrollTop();
 				if (dy < options.threshold) {
-					// load more items
 					waiting = true;
-					options.onBottom(function(more) {
+					options.loadMore(function(more) {
 						if (more === false) {
 							moreExists = false;
 							if (typeof options.onEnd === 'function') {
@@ -65,16 +68,37 @@
 						waiting = false;
 					});
 				}
-			});
-		} else if (action === 'reset') {
-			var options = $container.data('infinite-scroll');
-			$container.infiniteScroll(options);
+			}
+			
+			if (options.iScroll) {
+				// ios scrolling
+				var onScrollMove = options.iScroll.options.onScrollMove || null;
+				options.iScroll.options.onScrollMove = function() {
+					if (onScrollMove) onScrollMove();
+					onScroll();
+				}
+				options.iScroll_scrollMove = onScrollMove;
+			} else {
+				// traditional scrolling
+				$window.on('scroll.infinite resize.infinite', onScroll);
+			}
+			
+			$container.data('infinite-scroll', options);
+			$(onScroll);
 		}
 		
-		if (action === 'init' || action === 'reset') {
-			$(function() {
-				$window.trigger('scroll.infinite');
-			});
+		// reinitialize (for when content changes)
+		// -----------------------------------------------------------------------------
+		if (action === 'reset') {
+			var options = $container.data('infinite-scroll');
+			if (options.iScroll) {
+				if (options.iScroll_scrollMove) {
+					options.iScroll.options.onScrollMove = options.iScroll_scrollMove;
+				}
+				options.iScroll.scrollTo(0, 0, 0, false);
+			}
+			$window.off('scroll.infinite resize.infinite');
+			$container.infiniteScroll(options);
 		}
 		
 		return this;

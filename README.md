@@ -1,6 +1,6 @@
 # jQuery Infinite Scroll
 
-A really simple & lightweight (4kb) jQuery infinite scroll plugin that's designed not to get in the way—so you can handle result fetching / updating views yourself.
+A really simple & lightweight (1kb) jQuery infinite scroll plugin that's designed not to get in the way—so you can handle result fetching / updating views yourself. In addition to working with all major browsers, it supports [iScroll](https://github.com/cubiq/iscroll) (for scrolling content on iOS devices).
 
 ## Usage
 
@@ -20,6 +20,30 @@ $('#results').infiniteScroll({
 	}
 });
 ```
+
+### Using with iScroll
+
+It's *super* easy, just set the `iScroll` option to the iScroll instance.
+
+```javascript
+var scroller = new iScroll('results', {
+	desktopCompatibility: true,
+	hScrollbar: false,
+	vScrollbar: false,
+	snap: 'li',
+	momentum: false
+});
+
+$('#results').infiniteScroll({
+	iScroll: scroller,
+	onBottom: function(callback) {
+		console.log('At the end of the page. Loading more!');
+		callback();
+	}
+});
+```
+
+For more information on iScroll implementation, check out the [documentation](http://cubiq.org/iscroll-4).
 
 ### Options
 
@@ -47,6 +71,12 @@ $('#results').infiniteScroll({
 		<td valign="top">function(callback)</td>
 		<td valign="top">null</td>
 		<td valign="top"><strong>(required)</strong> Invoked when the user reaches the end of the page. When you're done loading more results / updating views, invoke callback() with one argument: a bool representing whether there are more results available. If no arguments are provided, the plugin assumes there are more results.</td>
+	</tr>
+	<tr>
+		<td valign="top">iScroll</td>
+		<td valign="top">instance</td>
+		<td valign="top">null</td>
+		<td valign="top">An iScroll instance that you wish to add infinite scrolling to.</td>
 	</tr>
 </table>
 
