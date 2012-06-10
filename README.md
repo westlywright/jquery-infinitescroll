@@ -25,7 +25,7 @@ $('#results').infiniteScroll({
 
 ### Using with iScroll
 
-It's *super* easy, just set the `iScroll` option to the iScroll instance.
+Mobile Webkit doesn't support scrolling of content in fixed width/height elements. To fix this, there's [iScroll](http://cubiq.org/iscroll-4)—a well-crafted library that emulates how it should work (and also has some other niceties). Using iScroll in conjunction with this infinite scroll plugin is *super* easy, just set the `iScroll` option to the iScroll instance.
 
 ```javascript
 var scroller = new iScroll('results', {
@@ -44,8 +44,6 @@ $('#results').infiniteScroll({
 	}
 });
 ```
-
-For more information on iScroll implementation, check out the [documentation](http://cubiq.org/iscroll-4).
 
 ### Options
 
@@ -76,8 +74,8 @@ For more information on iScroll implementation, check out the [documentation](ht
 	</tr>
 	<tr>
 		<td valign="top">iScroll</td>
-		<td valign="top">instance</td>
-		<td valign="top">null</td>
+		<td valign="top"><code>instance</code></td>
+		<td valign="top"><code>null</code></td>
 		<td valign="top">An iScroll instance that you wish to add infinite scrolling to.</td>
 	</tr>
 </table>
