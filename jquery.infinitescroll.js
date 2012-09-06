@@ -28,7 +28,7 @@
 		// -----------------------------------------------------------------------------
 		var options = {
 			threshold : 80,
-			loadMore  : function() {},
+			onBottom  : function() {},
 			onEnd     : null,
 			iScroll   : null
 		};
@@ -58,7 +58,7 @@
 				
 				if (dy < options.threshold) {
 					waiting = true;
-					options.loadMore(function(more) {
+					options.onBottom(function(more) {
 						if (more === false) {
 							moreExists = false;
 							if (typeof options.onEnd === 'function') {
