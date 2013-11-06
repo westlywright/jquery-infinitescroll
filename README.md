@@ -14,10 +14,10 @@ $('#results').infiniteScroll({
 	},
 	onBottom: function(callback) {
 		console.log('At the end of the page. Loading more!');
-		
+
 		// (load results & update views)
 		var moreResults = true;
-		
+
 		callback(moreResults);
 	}
 });
@@ -59,6 +59,12 @@ $('#results').infiniteScroll({
 		<td valign="top"><code>int</code></td>
 		<td valign="top"><code>500</code></td>
 		<td valign="top">When the user scrolls to this many pixels from the bottom, <code>loadMore</code> is called.</td>
+	</tr>
+	<tr>
+		<td valign="top">local</td>
+		<td valign="top"><code>boolean</code></td>
+		<td valign="top"><code>false</code></td>
+		<td valign="top">Assumes that scrolling will occur to the local container that has overflow properties instead of the window element.</td>
 	</tr>
 	<tr>
 		<td valign="top">onEnd</td>

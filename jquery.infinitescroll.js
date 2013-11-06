@@ -1,21 +1,21 @@
-/** 
+/**
  * infinitescroll - Lightweight Infinite Scrolling
  * Copyright (c) 2012 DIY Co
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
  * file except in compliance with the License. You may obtain a copy of the License at:
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under 
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
- * ANY KIND, either express or implied. See the License for the specific language 
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
+ * ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  *
  * @author Brian Reavis <brian@diy.org>
  */
 
 ;(function($) {
-	
+
 	$.fn.infiniteScroll = function() {
 		var $container = $(this);
 		var $window    = $(window);
@@ -23,16 +23,17 @@
 		var action     = 'init';
 		var waiting    = false;
 		var moreExists = true;
-		
+
 		// defaults
 		// -----------------------------------------------------------------------------
 		var options = {
 			threshold : 80,
 			onBottom  : function() {},
 			onEnd     : null,
-			iScroll   : null
+			iScroll   : null,
+			local     : false
 		};
-		
+
 		// parse arguments
 		// -----------------------------------------------------------------------------
 		if (arguments.length) {
@@ -45,17 +46,17 @@
 				options = $.extend(options, arguments[0]);
 			}
 		}
-		
+
 		// initialize
 		// -----------------------------------------------------------------------------
 		if (action === 'init') {
 			var onScroll = function() {
 				if (waiting || !moreExists) return;
-					
-				var dy = options.iScroll
-					? -options.iScroll.maxScrollY + options.iScroll.y
-					:  $body.outerHeight() - $window.height() - $window.scrollTop();
-				
+
+				var dy = options.iScroll ? -options.iScroll.maxScrollY + options.iScroll.y
+					: !options.local ? $body.outerHeight() - $window.height() - $window.scrollTop()
+					: $container[0].scrollHeight - $container.outerHeight() - $container.scrollTop();
+
 				if (dy < options.threshold) {
 					waiting = true;
 					options.onBottom(function(more) {
@@ -68,25 +69,27 @@
 						waiting = false;
 					});
 				}
-			}
-			
+			};
+
 			if (options.iScroll) {
 				// ios scrolling
 				var onScrollMove = options.iScroll.options.onScrollMove || null;
 				options.iScroll.options.onScrollMove = function() {
 					if (onScrollMove) onScrollMove();
 					onScroll();
-				}
+				};
+
 				options.iScroll_scrollMove = onScrollMove;
 			} else {
 				// traditional scrolling
-				$window.on('scroll.infinite resize.infinite', onScroll);
+				!options.local ? $window.on('scroll.infinite resize.infinite', onScroll)
+				: $container.on('scroll.infinite resize.infinite', onScroll) ;
 			}
-			
+
 			$container.data('infinite-scroll', options);
 			$(onScroll);
 		}
-		
+
 		// reinitialize (for when content changes)
 		// -----------------------------------------------------------------------------
 		if (action === 'reset') {
@@ -100,8 +103,8 @@
 			$window.off('scroll.infinite resize.infinite');
 			$container.infiniteScroll(options);
 		}
-		
+
 		return this;
 	};
-	
+
 })(jQuery);
